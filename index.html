@@ -145,7 +145,7 @@ $('copy').addEventListener('click',()=>{if(!ready())return;const z=$('sig').styl
   say(ok?'Αντιγράφηκε. Κάνε επικόλληση στο πεδίο υπογραφής του Gmail.':'Η αντιγραφή δεν έγινε αυτόματα. Επίλεξε την υπογραφή με το ποντίκι και πάτα Ctrl/Cmd + C.',ok);});
 $('copyHtml').addEventListener('click',async()=>{const d=ready();if(!d)return;const h=build(d);
   try{await navigator.clipboard.writeText(h);say('Ο κώδικας HTML αντιγράφηκε.',true);}catch(e){say('Δεν ήταν δυνατή η αντιγραφή του κώδικα σε αυτόν τον browser.',false);}});
-function fit(){const w=$('stage').clientWidth-40;$('sig').style.zoom='';const t=$('sig').firstElementChild;const sw=t?t.offsetWidth:540;const s=Math.min(1,w/sw);$('sig').style.zoom=s<1?String(s):'';}
+function fit(){const w=$('stage').clientWidth-40;$('sig').style.zoom='';const t=$('sig').firstElementChild;let sw=t?t.offsetWidth:540;try{const d=data();const k=document.createElement('div');k.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden';k.innerHTML=build(Object.assign({},d,{mobile:d.mobile||'+30 697 860 2619'}));document.body.appendChild(k);sw=Math.max(sw,k.firstElementChild.offsetWidth);k.remove();}catch(e){}const s=Math.min(1,w/sw);$('sig').style.zoom=s<1?String(s):'';}
 window.addEventListener('resize',fit);
 render();fit();
 </script>
