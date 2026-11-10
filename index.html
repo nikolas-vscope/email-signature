@@ -97,25 +97,25 @@ function build(d){
   const base=d.base?(d.base.endsWith('/')?d.base:d.base+'/'):'';
   const img=k=>esc(base+F[k]);
   const FONT="font-family:Montserrat,'Helvetica Neue',Helvetica,'Segoe UI',Roboto,Arial,sans-serif;";
-  const TXT=`${FONT}font-size:15px;line-height:18.8px;font-weight:500;color:#1A2033;white-space:nowrap`;
+  const TXT=`${FONT}font-size:12.2px;line-height:15.3px;font-weight:500;color:#1A2033;white-space:nowrap`;
   const fmt=n=>{const m=n.trim().match(/^(\+\d{2,3})\s*(.*)$/);return m?m[1]+' '+m[2].replace(/\s/g,''):n.replace(/\s/g,'');};
   const nb=s=>esc(s).replace(/ /g,'&nbsp;');
   const telA=n=>`<a href="tel:${esc(n.replace(/[^\d+]/g,''))}" style="color:#1A2033;text-decoration:none;white-space:nowrap">${nb(fmt(n))}</a>`;
-  const DOTTD=`<td valign="middle" style="padding:0 10px;${TXT};color:#2253E8">•</td>`;
+  const DOTTD=`<td valign="middle" style="padding:0 8px;${TXT};color:#2253E8">•</td>`;
   const mail=`<a href="mailto:${esc(d.email)}" style="color:#6B7280;text-decoration:none">${esc(d.email)}</a>`;
-  const phoneTds=`<td valign="middle" style="padding:0;${TXT}">${telA(d.office)}</td>`+(d.mobile?`<td valign="middle" style="padding:0 0 0 10px;${TXT}">${telA(d.mobile)}</td>`:'');
-  const icon=(k,url,first)=>url?`<a href="${esc(url)}" target="_blank" style="text-decoration:none;display:inline-block;${first?'':'padding-left:12.5px;'}"><img src="${img(k)}" width="18" height="18" alt="${k}" style="display:block;border:0;width:17.5px;height:17.5px"></a>`:'';
+  const phoneTds=`<td valign="middle" style="padding:0;${TXT}">${telA(d.office)}</td>`+(d.mobile?`<td valign="middle" style="padding:0 0 0 8px;${TXT}">${telA(d.mobile)}</td>`:'');
+  const icon=(k,url,first)=>url?`<a href="${esc(url)}" target="_blank" style="text-decoration:none;display:inline-block;${first?'':'padding-left:10.2px;'}"><img src="${img(k)}" width="14" height="14" alt="${k}" style="display:block;border:0;width:14.3px;height:14.3px"></a>`:'';
   const icons=[['fb',d.fb],['ig',d.ig],['li',d.li],['tt',d.tt]].filter(x=>x[1]).map((x,i)=>`<td valign="middle" style="padding:0">${icon(x[0],x[1],i===0)}</td>`).join('');
   return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;background:#ffffff;${FONT}"><tr><td style="padding:32px 0">`+
   `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>`+
   `<td width="148" align="center" valign="middle" style="width:148px;padding:0"><a href="${esc(d.site)}" target="_blank" style="text-decoration:none"><img src="${img('logo')}" width="144" height="72" alt="THE VSCOPE" style="display:block;border:0;width:144px;height:72px"></a></td>`+
   `<td width="1" style="width:1px;height:120px;padding:0;border-left:1px solid #E3E6EE;font-size:0;line-height:0">&nbsp;</td>`+
-  `<td valign="middle" style="padding:0 0 0 27.5px;${FONT}">`+
-    `<div style="${FONT}font-size:26.9px;line-height:32.6px;font-weight:600;letter-spacing:-0.75px;color:#1A2033">${esc(d.name)}</div>`+
-    `<div style="${FONT}font-size:12.5px;line-height:15px;font-weight:600;letter-spacing:2.25px;color:#2253E8;text-transform:uppercase;padding-top:6.3px">${esc(d.title)}</div>`+
+  `<td valign="middle" style="padding:0 0 0 22.4px;${FONT}">`+
+    `<div style="${FONT}font-size:21.9px;line-height:26.5px;font-weight:600;letter-spacing:-0.61px;color:#1A2033">${esc(d.name)}</div>`+
+    `<div style="${FONT}font-size:10.2px;line-height:12.2px;font-weight:600;letter-spacing:1.83px;color:#2253E8;text-transform:uppercase;padding-top:5.1px">${esc(d.title)}</div>`+
     `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse">`+
-      `<tr><td style="padding:30px 0 0 0;${TXT}">${mail}</td></tr>`+
-      `<tr><td style="padding:7.5px 0 0 0"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>${phoneTds}${DOTTD}${icons}</tr></table></td></tr>`+
+      `<tr><td style="padding:24.5px 0 0 0;${TXT}">${mail}</td></tr>`+
+      `<tr><td style="padding:6.1px 0 0 0"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>${phoneTds}${DOTTD}${icons}</tr></table></td></tr>`+
     `</table>`+
   `</td></tr></table></td></tr></table>`;
 }
