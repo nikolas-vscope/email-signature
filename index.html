@@ -97,16 +97,14 @@ function build(d){
   const base=d.base?(d.base.endsWith('/')?d.base:d.base+'/'):'';
   const img=k=>esc(base+F[k]);
   const FONT="font-family:Montserrat,'Helvetica Neue',Helvetica,'Segoe UI',Roboto,Arial,sans-serif;";
-  const telA=n=>`<a href="tel:${esc(n.replace(/[^\d+]/g,''))}" style="color:#1A2033;text-decoration:none">${esc(n)}</a>`;
-  const DOT=`<span style="color:#2253E8">&nbsp;&nbsp;•&nbsp;&nbsp;</span>`;
-  const mail=`<a href="mailto:${esc(d.email)}" style="color:#6B7280;text-decoration:none">${esc(d.email)}</a>`;
   const TXT=`${FONT}font-size:12px;line-height:15px;font-weight:500;color:#1A2033;white-space:nowrap`;
-  const two=!!d.mobile;
-  const emailRow=two?`<tr><td colspan="2" style="padding:24px 0 0 0;${TXT}">${mail}</td></tr>`:'';
-  const phones=two?telA(d.office)+DOT+telA(d.mobile):telA(d.office)+DOT+mail;
-  const padTop=two?'6px':'42px';
+  const nb=s=>esc(s).replace(/ /g,'&nbsp;');
+  const telA=n=>`<a href="tel:${esc(n.replace(/[^\d+]/g,''))}" style="color:#1A2033;text-decoration:none;white-space:nowrap">${nb(n)}</a>`;
+  const DOTTD=`<td valign="middle" style="padding:0 8px;${TXT};color:#2253E8">•</td>`;
+  const mail=`<a href="mailto:${esc(d.email)}" style="color:#6B7280;text-decoration:none">${esc(d.email)}</a>`;
+  const phoneTds=`<td valign="middle" style="padding:0;${TXT}">${telA(d.office)}</td>`+(d.mobile?DOTTD+`<td valign="middle" style="padding:0;${TXT}">${telA(d.mobile)}</td>`:'');
   const icon=(k,url,first)=>url?`<a href="${esc(url)}" target="_blank" style="text-decoration:none;display:inline-block;${first?'':'padding-left:10px;'}"><img src="${img(k)}" width="14" height="14" alt="${k}" style="display:block;border:0;width:14px;height:14px"></a>`:'';
-  const icons=[['fb',d.fb],['ig',d.ig],['li',d.li],['tt',d.tt]].filter(x=>x[1]).map((x,i)=>`<td style="padding:0">${icon(x[0],x[1],i===0)}</td>`).join('');
+  const icons=[['fb',d.fb],['ig',d.ig],['li',d.li],['tt',d.tt]].filter(x=>x[1]).map((x,i)=>`<td valign="middle" style="padding:0">${icon(x[0],x[1],i===0)}</td>`).join('');
   return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;width:540px;background:#ffffff;${FONT}"><tr><td style="padding:32px 0">`+
   `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;width:540px"><tr>`+
   `<td width="168" align="center" valign="middle" style="width:168px;padding:0"><a href="${esc(d.site)}" target="_blank" style="text-decoration:none"><img src="${img('logo')}" width="144" height="72" alt="THE VSCOPE" style="display:block;border:0;width:144px;height:72px"></a></td>`+
@@ -114,10 +112,10 @@ function build(d){
   `<td valign="middle" style="padding:0 0 0 22px;${FONT}">`+
     `<div style="${FONT}font-size:21.5px;line-height:26px;font-weight:600;letter-spacing:-0.6px;color:#1A2033">${esc(d.name)}</div>`+
     `<div style="${FONT}font-size:10px;line-height:12px;font-weight:600;letter-spacing:1.8px;color:#2253E8;text-transform:uppercase;padding-top:5px">${esc(d.title)}</div>`+
-    `<table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;width:100%">${emailRow}<tr>`+
-      `<td valign="middle" style="padding:${padTop} 0 0 0;${TXT}">${phones}</td>`+
-      `<td align="right" valign="middle" style="padding:${padTop} 0 0 20px"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>${icons}</tr></table></td>`+
-    `</tr></table>`+
+    `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse">`+
+      `<tr><td style="padding:24px 0 0 0;${TXT}">${mail}</td></tr>`+
+      `<tr><td style="padding:6px 0 0 0"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>${phoneTds}${DOTTD}${icons}</tr></table></td></tr>`+
+    `</table>`+
   `</td></tr></table></td></tr></table>`;
 }
 const OFFICES={ATH:{label:'Αθήνα',num:'+30 211 119 8127'},HER:{label:'Κρήτη',num:'+30 281 181 3079'}};
