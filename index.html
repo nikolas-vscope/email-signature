@@ -139,8 +139,8 @@ function ready(){const d=data();
   return d;}
 $('f').addEventListener('input',render);
 $('f').addEventListener('change',render);
-$('copy').addEventListener('click',()=>{if(!ready())return;const z=$('sig').style.zoom;$('sig').style.zoom='';const r=document.createRange();r.selectNode($('sig').firstChild);const s=getSelection();s.removeAllRanges();s.addRange(r);
-  let ok=false;try{ok=document.execCommand('copy');}catch(e){}s.removeAllRanges();$('sig').style.zoom=z;
+$('copy').addEventListener('click',()=>{if(!ready())return;const z=$('sig').style.zoom;$('sig').style.zoom='';const c0=$('sig').style.color;$('sig').style.color='#000000';const r=document.createRange();r.selectNode($('sig').firstChild);const s=getSelection();s.removeAllRanges();s.addRange(r);
+  let ok=false;try{ok=document.execCommand('copy');}catch(e){}s.removeAllRanges();$('sig').style.zoom=z;$('sig').style.color=c0;
   say(ok?'Αντιγράφηκε. Κάνε επικόλληση στο πεδίο υπογραφής του Gmail.':'Η αντιγραφή δεν έγινε αυτόματα. Επίλεξε την υπογραφή με το ποντίκι και πάτα Ctrl/Cmd + C.',ok);});
 function fit(){const w=$('stage').clientWidth-40;$('sig').style.zoom='';const t=$('sig').firstElementChild;let sw=t?t.offsetWidth:540;try{const d=data();const k=document.createElement('div');k.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden';k.innerHTML=build(Object.assign({},d,{mobile:d.mobile||'+30 697 860 2619'}));document.body.appendChild(k);sw=Math.max(sw,k.firstElementChild.offsetWidth);k.remove();}catch(e){}const s=Math.min(1,w/sw);$('sig').style.zoom=s<1?String(s):'';}
 window.addEventListener('resize',fit);
