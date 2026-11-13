@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE VSCOPE · Email Signature</title>
+<style>
+  :root{--b:#2253E8;--ink:#1A2033;--mut:#6B7280;--ln:#E3E6EE;--bg:#F3F5FA}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .wrap{max-width:1160px;margin:0 auto;padding:40px 24px 64px;display:grid;grid-template-columns:340px 1fr;gap:32px;align-items:start}
+  h1{grid-column:1/-1;margin:0;font-size:26px;letter-spacing:-.4px}
+  .eyebrow{grid-column:1/-1;margin:0 0 -24px;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--b)}
+  form{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px}
+  fieldset{border:0;padding:0;margin:0;min-width:0;display:flex;flex-direction:column;gap:10px}
+  legend{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--mut);margin-bottom:6px}
+  label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600}
+  input{font:inherit;font-weight:400;padding:8px 10px;border:1px solid #CDD3E0;border-radius:6px}
+  input:focus{outline:2px solid var(--b);outline-offset:-1px}
+  .right{display:flex;flex-direction:column;gap:16px;min-width:0}
+  .stage{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:24px 20px;overflow:hidden;display:flex;justify-content:center}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  button{font:inherit;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--b);background:#fff;color:var(--b);cursor:pointer}
+  button.primary{background:var(--b);color:#fff}
+  .msg{font-size:13px;min-height:20px}
+  .msg.err{color:#B42318}.msg.ok{color:#067647}
+  .note{font-size:13px;color:var(--mut);background:#fff;border:1px solid var(--ln);border-radius:12px;padding:16px 18px}
+  .note b{color:var(--ink)}
+  .note h2{margin:0 0 8px;font-size:15px;color:var(--ink)}
+  .note ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.5}
+  .seg{display:flex;gap:8px}
+  .opt{flex:1;flex-direction:row;cursor:pointer}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt span{flex:1;text-align:center;padding:9px 0;border:1px solid #CDD3E0;border-radius:6px;font-size:12px;letter-spacing:.12em}
+  .opt input:checked+span{background:var(--b);border-color:var(--b);color:#fff}
+  .opt input:focus-visible+span{outline:2px solid var(--b);outline-offset:2px}
+  .office{font-size:13px;color:var(--mut)}
+  .office b{color:var(--ink);font-weight:600}
+  input.lock{background:#F3F5FA;color:#8A93A6;border-color:#E3E6EE;cursor:not-allowed;pointer-events:none;user-select:none}
+  .addon{display:flex;align-items:stretch;border:1px solid #CDD3E0;border-radius:6px;overflow:hidden;font-weight:400}
+  .addon:focus-within{outline:2px solid var(--b);outline-offset:-1px}
+  .addon input{border:0;border-radius:0;flex:1;min-width:0;outline:none}
+  .dom{display:flex;align-items:center;padding:0 10px;background:#F3F5FA;color:#8A93A6;border-left:1px solid #E3E6EE;white-space:nowrap}
+  @media (max-width:860px){.wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">THE VSCOPE · EMAIL SIGNATURE</p>
+  <h1>Δημιουργία υπογραφής</h1>
+
+  <form id="f" autocomplete="off">
+    <fieldset>
+      <legend>ΣΤΟΙΧΕΙΑ ΑΤΟΜΟΥ</legend>
+      <label>Ονοματεπώνυμο<input id="name" value="Nikolas Koultoukis"></label>
+      <label>Τίτλος<input id="title" value="Art Director"></label>
+      <label>Email<span class="addon"><input id="email" value="nikolas" spellcheck="false" autocapitalize="off"><span class="dom">@thevscope.com</span></span></label>
+    </fieldset>
+    <fieldset>
+      <legend>ΤΗΛΕΦΩΝΑ</legend>
+      <div class="seg" role="radiogroup" aria-label="Γραφείο">
+        <label class="opt"><input type="radio" name="office" id="oATH" value="ATH" checked><span>ΑΘΗΝΑ</span></label>
+        <label class="opt"><input type="radio" name="office" id="oHER" value="HER"><span>ΚΡΗΤΗ</span></label>
+      </div>
+      <div class="office" id="officeNum"></div>
+      <label>Κινητό (προαιρετικό)<input id="mobile" value="" inputmode="tel" placeholder="+30 69X XXX XXXX"></label>
+    </fieldset>
+  </form>
+
+  <div class="right">
+    <div class="stage" id="stage"><div id="sig"></div></div>
+    <div class="btns">
+      <button class="primary" type="button" id="copy">Αντιγραφή υπογραφής για Gmail</button>
+    </div>
+    <div class="msg" id="msg" role="status"></div>
+    <div class="note">
+      <h2>Πέρασέ την στο Gmail</h2>
+      <ol>
+        <li>Gmail → ⚙️ → <b>See all settings</b> → καρτέλα <b>General</b> → ενότητα <b>Signature</b>.</li>
+        <li>Αν υπάρχει η παλιά υπογραφή (WiseStamp), σβήσε την ή απενεργοποίησε την επέκταση, για να μη μπαίνουν δύο.</li>
+        <li><b>Create new</b>, δώσε όνομα, π.χ. «THE VSCOPE», και κάνε επικόλληση με Ctrl/Cmd + V.</li>
+        <li>Κάτω από το πεδίο, στο <b>Signature defaults</b>, διάλεξε την υπογραφή και για νέα emails και για απαντήσεις.</li>
+        <li>Τσέκαρε την επιλογή που βάζει την υπογραφή πριν από το παλιό κείμενο στις απαντήσεις.</li>
+        <li><b>Save Changes</b> στο κάτω μέρος της σελίδας.</li>
+        <li>Στείλε ένα δοκιμαστικό email στον εαυτό σου και σε ένα κινητό.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script>
+const F={logo:'vscope-logo-loop.gif',fb:'vscope-facebook.png',ig:'vscope-instagram.png',li:'vscope-linkedin.png',tt:'vscope-tiktok.png'};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function build(d){
+  const base=d.base?(d.base.endsWith('/')?d.base:d.base+'/'):'';
+  const img=k=>esc(base+F[k]);
+  const FONT="font-family:Montserrat,'Helvetica Neue',Helvetica,'Segoe UI',Roboto,Arial,sans-serif;";
+  const TXT=`${FONT}font-size:12.2px;line-height:15.3px;font-weight:500;color:#1A2033;white-space:nowrap`;
+  const fmt=n=>{const m=n.trim().match(/^(\+\d{2,3})\s*(.*)$/);return m?m[1]+' '+m[2].replace(/\s/g,''):n.replace(/\s/g,'');};
+  const nb=s=>esc(s).replace(/ /g,'&nbsp;');
+  const telA=n=>`<a href="tel:${esc(n.replace(/[^\d+]/g,''))}" style="color:#1A2033;text-decoration:none;white-space:nowrap">${nb(fmt(n))}</a>`;
+  const DOTTD=`<td valign="middle" style="padding:0 8px;${TXT};color:#2253E8">•</td>`;
+  const mail=`<a href="mailto:${esc(d.email)}" style="color:#6B7280;text-decoration:none">${esc(d.email)}</a>`;
+  const phoneTds=`<td valign="middle" style="padding:0;${TXT}">${telA(d.office)}</td>`+(d.mobile?`<td valign="middle" style="padding:0 0 0 8px;${TXT}">${telA(d.mobile)}</td>`:'');
+  const icon=(k,url,first)=>url?`<a href="${esc(url)}" target="_blank" style="text-decoration:none;display:inline-block;${first?'':'padding-left:10.2px;'}"><img src="${img(k)}" width="14" height="14" alt="${k}" style="display:block;border:0;width:14.3px;height:14.3px"></a>`:'';
+  const icons=[['fb',d.fb],['ig',d.ig],['li',d.li],['tt',d.tt]].filter(x=>x[1]).map((x,i)=>`<td valign="middle" style="padding:0">${icon(x[0],x[1],i===0)}</td>`).join('');
+  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;background:#ffffff;${FONT}"><tr><td style="padding:32px 0">`+
+  `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>`+
+  `<td width="148" align="center" valign="middle" style="width:148px;padding:0"><a href="${esc(d.site)}" target="_blank" style="text-decoration:none"><img src="${img('logo')}" width="144" height="72" alt="THE VSCOPE" style="display:block;border:0;width:144px;height:72px"></a></td>`+
+  `<td width="1" style="width:1px;height:120px;padding:0;border-left:1px solid #E3E6EE;font-size:0;line-height:0">&nbsp;</td>`+
+  `<td valign="middle" style="padding:0 0 0 22.4px;${FONT}">`+
+    `<div style="${FONT}font-size:18px;line-height:22px;font-weight:600;letter-spacing:-0.5px;color:#1A2033">${esc(d.name)}</div>`+
+    `<div style="${FONT}font-size:10.2px;line-height:12.2px;font-weight:600;letter-spacing:1.83px;color:#2253E8;text-transform:uppercase;padding-top:5.1px">${esc(d.title)}</div>`+
+    `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse">`+
+      `<tr><td style="padding:24.5px 0 0 0;${TXT}">${mail}</td></tr>`+
+      `<tr><td style="padding:6.1px 0 0 0"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse"><tr>${phoneTds}${DOTTD}${icons}</tr></table></td></tr>`+
+    `</table>`+
+  `</td></tr></table></td></tr></table>`;
+}
+const OFFICES={ATH:{label:'Αθήνα',num:'+30 211 119 8127'},HER:{label:'Κρήτη',num:'+30 281 181 3079'}};
+const LINKS={site:'https://www.thevscope.com',fb:'https://www.facebook.com/thevscope',ig:'https://www.instagram.com/thevscope',li:'https://www.linkedin.com/company/the-vscope',tt:'https://www.tiktok.com/@thevscope'};
+const mob=$('mobile');
+mob.addEventListener('focus',()=>{if(!mob.value.trim()){mob.value='+30 ';render();}requestAnimationFrame(()=>{const n=mob.value.length;mob.setSelectionRange(n,n);});});
+mob.addEventListener('blur',()=>{if(mob.value.trim()==='+30'||mob.value.trim()==='+'){mob.value='';render();}});
+mob.addEventListener('input',()=>{const rest=mob.value.replace(/^\s*((\+|00)?30\s*)+/,'');const d=rest.replace(/\D/g,'').slice(0,10);mob.value='+30 '+[d.slice(0,3),d.slice(3,6),d.slice(6)].filter(Boolean).join(' ');});
+$('email').addEventListener('input',e=>{const v=e.target.value;if(v.includes('@')){e.target.value=v.split('@')[0];}e.target.value=e.target.value.replace(/\s/g,'');});
+const ONLINE=location.protocol==='https:';
+const ASSETS=ONLINE?new URL('./',location.href).href:'';
+function data(){const o={};['name','title'].forEach(k=>o[k]=$(k).value.trim());o.base=ASSETS;Object.assign(o,LINKS);
+  const m=mob.value.trim();o.mobile=(m&&m!=='+30')?m:'';
+  const local=$('email').value.trim();o.email=local?local+'@thevscope.com':'';
+  const sel=document.querySelector('input[name=office]:checked').value;o.office=OFFICES[sel].num;o.officeLabel=OFFICES[sel].label;return o;}
+function render(){const d=data();$('officeNum').innerHTML='Τηλέφωνο γραφείου '+d.officeLabel+': <b>'+esc(d.office)+'</b>';$('sig').innerHTML=build(d);if(typeof fit==='function')fit();$('msg').textContent='';$('msg').className='msg';}
+function say(t,ok){$('msg').textContent=t;$('msg').className='msg '+(ok?'ok':'err');}
+function ready(){const d=data();
+  if(!ONLINE){say('Άνοιξε το εργαλείο από το online link της εταιρείας για να αντιγράψεις την υπογραφή. Από αρχείο στον υπολογιστή η αντιγραφή δεν δουλεύει, γιατί οι εικόνες δεν θα φαίνονταν στους παραλήπτες.',false);return null;}
+  if(!d.name||!d.email){say('Συμπλήρωσε τουλάχιστον όνομα και email.',false);return null;}
+  return d;}
+$('f').addEventListener('input',render);
+$('f').addEventListener('change',render);
+$('copy').addEventListener('click',()=>{if(!ready())return;const z=$('sig').style.zoom;$('sig').style.zoom='';const c0=$('sig').style.color;$('sig').style.color='#000000';const r=document.createRange();r.selectNode($('sig').firstChild);const s=getSelection();s.removeAllRanges();s.addRange(r);
+  let ok=false;try{ok=document.execCommand('copy');}catch(e){}s.removeAllRanges();$('sig').style.zoom=z;$('sig').style.color=c0;
+  say(ok?'Αντιγράφηκε. Κάνε επικόλληση στο πεδίο υπογραφής του Gmail.':'Η αντιγραφή δεν έγινε αυτόματα. Επίλεξε την υπογραφή με το ποντίκι και πάτα Ctrl/Cmd + C.',ok);});
+function fit(){const w=$('stage').clientWidth-40;$('sig').style.zoom='';const t=$('sig').firstElementChild;let sw=t?t.offsetWidth:540;try{const d=data();const k=document.createElement('div');k.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden';k.innerHTML=build(Object.assign({},d,{mobile:d.mobile||'+30 697 860 2619'}));document.body.appendChild(k);sw=Math.max(sw,k.firstElementChild.offsetWidth);k.remove();}catch(e){}const s=Math.min(1,w/sw);$('sig').style.zoom=s<1?String(s):'';}
+window.addEventListener('resize',fit);
+render();fit();
+</script>
+</body>
+</html>
