@@ -58,7 +58,6 @@
     </fieldset>
     <fieldset>
       <legend>ΤΗΛΕΦΩΝΑ</legend>
-      <div class="office" id="officeNum"></div>
       <label>Κινητό (προαιρετικό)<input id="mobile" value="" inputmode="tel" placeholder="+30 69X XXX XXXX"></label>
     </fieldset>
   </form>
@@ -127,7 +126,7 @@ function data(){const o={};['name','title'].forEach(k=>o[k]=$(k).value.trim());o
   const m=mob.value.trim();o.mobile=(m&&m!=='+30')?m:'';
   const local=$('email').value.trim();o.email=local?local+'@thevscope.com':'';
   o.office=OFFICE;return o;}
-function render(){const d=data();$('officeNum').innerHTML='Σταθερό τηλέφωνο: <b>'+esc(d.office)+'</b>';$('sig').innerHTML=build(d);if(typeof fit==='function')fit();$('msg').textContent='';$('msg').className='msg';}
+function render(){const d=data();$('sig').innerHTML=build(d);if(typeof fit==='function')fit();$('msg').textContent='';$('msg').className='msg';}
 function say(t,ok){$('msg').textContent=t;$('msg').className='msg '+(ok?'ok':'err');}
 function ready(){const d=data();
   if(!ONLINE){say('Άνοιξε το εργαλείο από το online link της εταιρείας για να αντιγράψεις την υπογραφή. Από αρχείο στον υπολογιστή η αντιγραφή δεν δουλεύει, γιατί οι εικόνες δεν θα φαίνονταν στους παραλήπτες.',false);return null;}
