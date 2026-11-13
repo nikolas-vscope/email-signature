@@ -58,10 +58,6 @@
     </fieldset>
     <fieldset>
       <legend>ΤΗΛΕΦΩΝΑ</legend>
-      <div class="seg" role="radiogroup" aria-label="Γραφείο">
-        <label class="opt"><input type="radio" name="office" id="oATH" value="ATH" checked><span>ΑΘΗΝΑ</span></label>
-        <label class="opt"><input type="radio" name="office" id="oHER" value="HER"><span>ΚΡΗΤΗ</span></label>
-      </div>
       <div class="office" id="officeNum"></div>
       <label>Κινητό (προαιρετικό)<input id="mobile" value="" inputmode="tel" placeholder="+30 69X XXX XXXX"></label>
     </fieldset>
@@ -118,7 +114,7 @@ function build(d){
     `</table>`+
   `</td></tr></table></td></tr></table>`;
 }
-const OFFICES={ATH:{label:'Αθήνα',num:'+30 211 119 8127'},HER:{label:'Κρήτη',num:'+30 281 181 3079'}};
+const OFFICE='+30 211 119 8127';
 const LINKS={site:'https://www.thevscope.com',fb:'https://www.facebook.com/thevscope',ig:'https://www.instagram.com/thevscope',li:'https://www.linkedin.com/company/the-vscope',tt:'https://www.tiktok.com/@thevscope'};
 const mob=$('mobile');
 mob.addEventListener('focus',()=>{if(!mob.value.trim()){mob.value='+30 ';render();}requestAnimationFrame(()=>{const n=mob.value.length;mob.setSelectionRange(n,n);});});
@@ -130,8 +126,8 @@ const ASSETS=ONLINE?new URL('./',location.href).href:'';
 function data(){const o={};['name','title'].forEach(k=>o[k]=$(k).value.trim());o.base=ASSETS;Object.assign(o,LINKS);
   const m=mob.value.trim();o.mobile=(m&&m!=='+30')?m:'';
   const local=$('email').value.trim();o.email=local?local+'@thevscope.com':'';
-  const sel=document.querySelector('input[name=office]:checked').value;o.office=OFFICES[sel].num;o.officeLabel=OFFICES[sel].label;return o;}
-function render(){const d=data();$('officeNum').innerHTML='Τηλέφωνο γραφείου '+d.officeLabel+': <b>'+esc(d.office)+'</b>';$('sig').innerHTML=build(d);if(typeof fit==='function')fit();$('msg').textContent='';$('msg').className='msg';}
+  o.office=OFFICE;return o;}
+function render(){const d=data();$('officeNum').innerHTML='Σταθερό τηλέφωνο: <b>'+esc(d.office)+'</b>';$('sig').innerHTML=build(d);if(typeof fit==='function')fit();$('msg').textContent='';$('msg').className='msg';}
 function say(t,ok){$('msg').textContent=t;$('msg').className='msg '+(ok?'ok':'err');}
 function ready(){const d=data();
   if(!ONLINE){say('Άνοιξε το εργαλείο από το online link της εταιρείας για να αντιγράψεις την υπογραφή. Από αρχείο στον υπολογιστή η αντιγραφή δεν δουλεύει, γιατί οι εικόνες δεν θα φαίνονταν στους παραλήπτες.',false);return null;}
